@@ -45,3 +45,6 @@ app.*.map.json
 
 /assets/images/*.png
 /assets/images/roulette.png
+
+/config/naver.dart
+naver.dart
