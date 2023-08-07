@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:what_is_lunch_time_for/service/functions.dart';
 import 'package:what_is_lunch_time_for/service/functions_naver_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
 import 'package:what_is_lunch_time_for/view/loading.dart';
-import 'package:what_is_lunch_time_for/view/menu_insert_page.dart';
 import 'package:what_is_lunch_time_for/view/result_page.dart';
 import 'package:what_is_lunch_time_for/view/roulette_animation.dart';
 import 'package:what_is_lunch_time_for/view/store_list.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: 'assets/config/.env');
+  AuthRepository.initialize(appKey: "${dotenv.env['JAVASCRIPT_KEY']}");
   runApp(const MainPage());
 }
 
@@ -38,7 +42,7 @@ class MainPage extends StatelessWidget {
         theme: ThemeData.light(),
         initialRoute: '/',
         routes: {
-          '/': (context) => const InsertPage(),
+          '/': (context) => const KakaoMap(),
           '/loading': (context) => const LoadingAnimation(),
           '/result': (context) => const ResultPage(),
           '/stores': (context) => const StoreListPage(),

@@ -48,3 +48,5 @@ app.*.map.json
 
 /config/naver.dart
 naver.dart
+/android/app/src/main/AndroidManifest.xml
+.env
