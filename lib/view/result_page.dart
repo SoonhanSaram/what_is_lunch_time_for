@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:what_is_lunch_time_for/service/functions.dart';
+import 'package:what_is_lunch_time_for/service/functions_naver_api.dart';
+import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
 
 class ResultPage extends StatelessWidget {
-  ResultPage({super.key});
-  late Functions _functionProvider;
+  const ResultPage({super.key});
   @override
   Widget build(BuildContext context) {
-    _functionProvider = Provider.of<Functions>(context, listen: true);
+    FunctionsNaverApi functionsNaverApi = Provider.of<FunctionsNaverApi>(context, listen: true);
+    String selectedMenu = context.watch<FunctionsRoulette>().selectedMenu;
     return Scaffold(
       body: Center(
         child: Column(
@@ -16,10 +17,10 @@ class ResultPage extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                _functionProvider.goToSearchList(context);
+                functionsNaverApi.goToSearchList(context, selectedMenu);
               },
               child: Text(
-                '"${_functionProvider.selectedMenu}" 먹으러 GoGo ~ ',
+                '"$selectedMenu" 먹으러 GoGo ~ ',
                 style: const TextStyle(fontSize: 34, color: Colors.black),
               ),
             ),

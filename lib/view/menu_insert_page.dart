@@ -5,12 +5,11 @@ import 'package:what_is_lunch_time_for/view/filed_button.dart';
 import 'package:what_is_lunch_time_for/view/menu_grid.dart';
 
 class InsertPage extends StatelessWidget {
-  InsertPage({Key? key}) : super(key: key);
-  late Functions _functionProvider;
+  const InsertPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    _functionProvider = Provider.of<Functions>(context, listen: true);
+    Functions functionProvider = Provider.of<Functions>(context, listen: true);
     TextEditingController menuTextController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +51,7 @@ class InsertPage extends StatelessWidget {
                         surfaceTintColor: MaterialStatePropertyAll(Colors.black),
                       ),
                       onPressed: () {
-                        _functionProvider.addMenus(menuTextController.text, context);
+                        functionProvider.addMenus(menuTextController.text, context);
                       },
                       icon: const Icon(Icons.add_circle_outline),
                     ),
@@ -62,8 +61,8 @@ class InsertPage extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              menuGrid(_functionProvider),
-              ranndomButton(_functionProvider, context),
+              menuGrid(functionProvider),
+              ranndomButton(functionProvider, context),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.055,
               ),

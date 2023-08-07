@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:what_is_lunch_time_for/service/functions.dart';
+import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
 
 SizedBox ranndomButton(Functions functionProvider, BuildContext context) {
+  FunctionsRoulette functionsRoulette = Provider.of<FunctionsRoulette>((context), listen: false);
   return SizedBox(
     width: 130,
     child: FilledButton(
       onPressed: () {
-        functionProvider.roulette(context);
+        functionsRoulette.flickerAnimation(context, functionProvider.menus);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
