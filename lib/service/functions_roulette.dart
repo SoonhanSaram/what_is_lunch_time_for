@@ -30,7 +30,7 @@ class FunctionsRoulette extends ChangeNotifier {
     _randomIndexList.add(_selectedMenu);
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.pushNamedAndRemoveUntil(
       context,
       '/result',

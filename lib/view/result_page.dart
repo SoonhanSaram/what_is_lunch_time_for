@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:what_is_lunch_time_for/service/functions_kakao_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_naver_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
 
@@ -8,6 +9,7 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FunctionsNaverApi functionsNaverApi = Provider.of<FunctionsNaverApi>(context, listen: true);
+    FunctionsKakaoApi functionsKakaoApi = Provider.of<FunctionsKakaoApi>(context, listen: false);
     String selectedMenu = context.watch<FunctionsRoulette>().selectedMenu;
     return Scaffold(
       body: Center(
@@ -17,7 +19,8 @@ class ResultPage extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                functionsNaverApi.goToSearchList(context, selectedMenu);
+                functionsKakaoApi.searchStoreWithMap(context, selectedMenu);
+                // functionsNaverApi.goToSearchList(context, selectedMenu);
               },
               child: Text(
                 '"$selectedMenu" 먹으러 GoGo ~ ',
