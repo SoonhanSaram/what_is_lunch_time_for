@@ -16,58 +16,77 @@ class InsertPage extends StatelessWidget {
         title: const Text("오늘 뭐 먹지?"),
       ),
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Container(
+                color: Colors.grey[200], // Set the background color
+                child: Center(
+                  child: Text(
+                    "${functionProvider.menus.length}/10", // Your desired background text
+                    style: TextStyle(
+                      fontSize: 80,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
               ),
-              Row(
+            ),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: TextField(
-                      controller: menuTextController,
-                      decoration: const InputDecoration(
-                        hintText: "오늘 먹을 메뉴",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.02,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: TextField(
+                          controller: menuTextController,
+                          decoration: const InputDecoration(
+                            hintText: "오늘 먹을 메뉴",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                      Expanded(
+                        flex: 1,
+                        child: IconButton(
+                          iconSize: 40,
+                          style: const ButtonStyle(
+                            surfaceTintColor: MaterialStatePropertyAll(Colors.black),
+                          ),
+                          onPressed: () {
+                            functionProvider.addMenus(menuTextController.text, context);
+                          },
+                          icon: const Icon(Icons.add_circle_outline),
+                        ),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      iconSize: 40,
-                      style: const ButtonStyle(
-                        surfaceTintColor: MaterialStatePropertyAll(Colors.black),
-                      ),
-                      onPressed: () {
-                        functionProvider.addMenus(menuTextController.text, context);
-                      },
-                      icon: const Icon(Icons.add_circle_outline),
-                    ),
-                  )
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  menuGrid(context),
+                  ranndomButton(functionProvider, context),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.055,
+                  ),
                 ],
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
-              ),
-              menuGrid(context),
-              ranndomButton(functionProvider, context),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.055,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
