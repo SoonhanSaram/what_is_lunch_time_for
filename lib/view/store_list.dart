@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:what_is_lunch_time_for/service/functions.dart';
 import 'package:what_is_lunch_time_for/service/functions_kakao_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_naver_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
@@ -13,6 +14,7 @@ class StoreListPage extends StatelessWidget {
     FunctionsNaverApi functionsNaverApi = Provider.of<FunctionsNaverApi>(context, listen: true);
     String vilageName = context.read<FunctionsKakaoApi>().vilageName == "" ? context.read<FunctionsNaverApi>().vilageName : context.read<FunctionsKakaoApi>().vilageName;
     String selectedMenu = context.read<FunctionsRoulette>().selectedMenu;
+    List<String> menus = context.watch<Functions>().menus;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -63,6 +65,7 @@ class StoreListPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                 functionsNaverApi.clearApiData();
+                menus.clear();
               },
               child: const Text("홈으로"),
             )

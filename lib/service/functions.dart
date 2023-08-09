@@ -32,12 +32,11 @@ class Functions extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteMenus(menu) {
-    _menus.retainWhere(
-      (element) {
-        return element != menu;
-      },
-    );
+  void deleteMenus(menu, index) {
+    print(_menus[index]);
+
+    _menus.removeAt(index);
+    showBack[index] = true;
     notifyListeners();
   }
 

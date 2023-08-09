@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:what_is_lunch_time_for/service/functions.dart';
 import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
 import 'package:what_is_lunch_time_for/view/pop_up_window.dart';
 
@@ -8,6 +9,7 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String selectedMenu = context.watch<FunctionsRoulette>().selectedMenu;
+    List<String> menus = context.watch<Functions>().menus;
     return Scaffold(
       body: Center(
         child: Column(
@@ -29,6 +31,7 @@ class ResultPage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/');
+                menus.clear();
               },
               child: const Text(
                 "돌아가기",

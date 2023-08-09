@@ -11,16 +11,32 @@ class RouletteAnimation extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color.fromARGB(255, 175, 164, 164)),
-            ),
-            child: Text(
-              flickerTitle[0],
-              style: const TextStyle(fontSize: 36),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                "추첨중 ...",
+                style: TextStyle(
+                  fontSize: 42,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: const LinearProgressIndicator(),
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: const Color.fromARGB(255, 175, 164, 164)),
+                ),
+                child: Text(
+                  flickerTitle[0],
+                  style: const TextStyle(fontSize: 36, color: Colors.blue),
+                ),
+              ),
+            ],
           ),
         ),
       ),
