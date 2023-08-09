@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:what_is_lunch_time_for/service/functions_kakao_api.dart';
-import 'package:what_is_lunch_time_for/service/functions_naver_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
+import 'package:what_is_lunch_time_for/view/pop_up_window.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({super.key});
   @override
   Widget build(BuildContext context) {
-    FunctionsNaverApi functionsNaverApi = Provider.of<FunctionsNaverApi>(context, listen: true);
-    FunctionsKakaoApi functionsKakaoApi = Provider.of<FunctionsKakaoApi>(context, listen: false);
     String selectedMenu = context.watch<FunctionsRoulette>().selectedMenu;
     return Scaffold(
       body: Center(
@@ -19,8 +16,7 @@ class ResultPage extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                functionsKakaoApi.searchStoreWithMap(context, selectedMenu);
-                // functionsNaverApi.goToSearchList(context, selectedMenu);
+                _showPopup(context);
               },
               child: Text(
                 '"$selectedMenu" 먹으러 GoGo ~ ',
@@ -42,6 +38,15 @@ class ResultPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const PopupWindow(); // PopupWindow 위젯을 반환
+      },
     );
   }
 }

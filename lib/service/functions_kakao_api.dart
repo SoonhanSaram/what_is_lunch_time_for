@@ -1,22 +1,28 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
 class FunctionsKakaoApi extends ChangeNotifier {
   double _longitude = 0;
   double _latitude = 0;
   String _villageName = "";
   String get vilageName => _villageName;
-  final Set<Marker> _markers = {};
-  get markers => _markers.toList();
   double get latitude => _latitude;
   double get longitude => _longitude;
+  List<Map<String, dynamic>> _positions = [];
+  List<Map<String, dynamic>> get positions => _positions;
+
+  void clearApiData() => {
+        _longitude = 0,
+        _latitude = 0,
+        _villageName = "",
+        _positions.clear(),
+      };
 
   Future<void> searchStoreWithMap(BuildContext context, menu) async {
+    _positions = [];
     try {
       await getLocation();
       try {
@@ -33,18 +39,14 @@ class FunctionsKakaoApi extends ChangeNotifier {
         if (body['documents'].isNotEmpty) {
           int i = 0;
           for (i = 0; i < body['documents'].length; i++) {
-            _markers.add(
-              Marker(
-                markerId: body['documents'][i]['place_name'],
-                // String으로 들어오는 좌표정보를 double로 형태 변환
-                latLng: LatLng(
-                  double.parse(body['documents'][i]['x']),
-                  double.parse(body['documents'][i]['y']),
-                ),
-              ),
+            _positions.add(
+              {
+                'name': body['documents'][i]['place_name'].toString(),
+                'lat': double.parse(body['documents'][i]['x']),
+                'lng': double.parse(body['documents'][i]['y']),
+              },
             );
           }
-          notifyListeners();
           Navigator.pushNamed(context, '/map');
         } else {
           callSnackBar(context, "주변에 매장이 없습니다.");

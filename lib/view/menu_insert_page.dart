@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:what_is_lunch_time_for/service/functions.dart';
-import 'package:what_is_lunch_time_for/view/filed_button.dart';
 import 'package:what_is_lunch_time_for/view/menu_grid.dart';
 
 class InsertPage extends StatelessWidget {
@@ -61,8 +60,7 @@ class InsertPage extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-              menuGrid(functionProvider),
-              ranndomButton(functionProvider, context),
+              menuGrid(context),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.055,
               ),

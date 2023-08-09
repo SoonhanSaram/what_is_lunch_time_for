@@ -3,6 +3,16 @@ import 'package:flutter/material.dart';
 class Functions extends ChangeNotifier {
   final List<String> _menus = [];
   List<String> get menus => _menus;
+  final List<bool> _showBack = [];
+  List<bool> get showBack => _showBack;
+
+  void showBackSwitch(index) {
+    if (index >= 0 && index < showBack.length) {
+      showBack[index] = !showBack[index]; // 반전
+    }
+    print(showBack);
+    notifyListeners();
+  }
 
   void addMenus(menu, BuildContext context) {
     if (menu == "") {
@@ -12,6 +22,7 @@ class Functions extends ChangeNotifier {
       );
     } else if (_menus.length < 10) {
       _menus.add(menu);
+      showBack.add(true);
     } else {
       callSnackBar(
         context,

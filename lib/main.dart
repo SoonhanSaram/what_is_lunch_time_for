@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:kakao_map_plugin/kakao_map_plugin.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:what_is_lunch_time_for/service/functions.dart';
+import 'package:what_is_lunch_time_for/service/functions_animation.dart';
 import 'package:what_is_lunch_time_for/service/functions_kakao_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_naver_api.dart';
 import 'package:what_is_lunch_time_for/service/functions_roulette.dart';
@@ -18,7 +17,7 @@ import 'package:what_is_lunch_time_for/view/store_list.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'assets/config/.env');
-  AuthRepository.initialize(appKey: dotenv.env['JAVASCRIPT_KEY'] ?? "");
+
   final status = await Permission.location.request();
   if (status.isGranted) {
     runApp(const MainPage());
@@ -45,6 +44,9 @@ class MainPage extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => FunctionsKakaoApi(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FunctionsAnimation(),
         )
       ],
       child: MaterialApp(
