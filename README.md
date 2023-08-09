@@ -6,8 +6,8 @@
 
 ## 들어간 기능
 
-Naver 검색 Api 
+Naver 검색 Api,
 Kakao 맵 Api
 
-Provider lib(MVVM)
+Provider lib(MVVM),
 카드 뒤집기 효과
